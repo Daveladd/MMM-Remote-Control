@@ -662,9 +662,9 @@ module.exports = NodeHelper.create(Object.assign({
                 this.controlPm2(res, query);
                 return true;
             }
-            if (query.action === "RESTART") {
-            //    this.controlPm2(res, "restart");
-                exec("pm2 restart mm"), opts, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); });
+            if (query.action === "RESTART" || query.action === "Stop") {
+                this.controlPm2(res, query);
+//                 exec("pm2 restart mm"), opts, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); });
                 return true;
             }
             if (query.action === "USER_PRESENCE") {
@@ -885,13 +885,31 @@ module.exports = NodeHelper.create(Object.assign({
                     this.sendResponse(res, err);
                     return;
                 }
-                console.log(`PM2 process: ${query.action.toLowerCase()} ${processName}`);
+//                 console.log(`PM2 process: ${query.action.toLowerCase()} ${processName}`);
 
-                pm2.stop(processName, (err, apps) => {
-                    this.sendResponse(res, undefined, { action: action, processName: processName });
-                    pm2.disconnect();
-                    if (err) { this.sendResponse(res, err); }
-                });
+//                 pm2.stop(processName, (err, apps) => {
+//                     this.sendResponse(res, undefined, { action: action, processName: processName });
+//                     pm2.disconnect();
+//                     if (err) { this.sendResponse(res, err); }
+//                 });
+                var actionName = query.action.toLowerCase();
+                console.log(`PM2 process: ${actionName} ${processName}`);
+
+                switch (actionName) {
+                    case 'restart':
+                        pm2.restart(processName, (err, apps) => {
+                            this.sendResponse(res, undefined, { action: action, processName: processName});
+                            if (err) { this.sendResponse(res, err); }
+                        });
+                        break;
+                    case 'stop':
+                        pm2.stop(processName, (err, apps) => {
+                            this.sendResponse(res, undefined, { action: action, processName: processName });
+                            pm2.disconnect();
+                            if (err) { this.sendResponse(res, err); }
+                        });
+                        break;
+                }
             });
         },
 

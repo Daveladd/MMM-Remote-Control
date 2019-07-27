@@ -637,9 +637,9 @@ module.exports = NodeHelper.create(Object.assign({
                 this.sendSocketNotification("USER_PRESENCE", false);
                 return;
             }
-            if (action === "MONITOROn") {
+            if (action === "MONITORON") {
                 exec(monitorOnCommand, (error, stdout, stderr) => {
-                    this.checkForExecError(error, stdout, stderr, res, { monitor: "off" });
+                    this.checkForExecError(error, stdout, stderr, res, { monitor: "on" });
                 });
                 this.sendSocketNotification("USER_PRESENCE", true);
                 return;
@@ -658,12 +658,13 @@ module.exports = NodeHelper.create(Object.assign({
                 exec("sudo shutdown -r now", opts, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); });
                 return true;
             }
-            if (query.action === "RESTART" || query.action === "STOP") {
+            if (query.action === "STOP") {
                 this.controlPm2(res, query);
                 return true;
             }
             if (query.action === "RESTART") {
-                this.controlPm2(res, query);
+            //    this.controlPm2(res, "restart");
+                exec("pm2 restart mm"), opts, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); });
                 return true;
             }
             if (query.action === "USER_PRESENCE") {

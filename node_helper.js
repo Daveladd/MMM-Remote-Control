@@ -637,6 +637,13 @@ module.exports = NodeHelper.create(Object.assign({
                 this.sendSocketNotification("USER_PRESENCE", false);
                 return;
             }
+            if (action === "MONITOROn") {
+                exec(monitorOnCommand, (error, stdout, stderr) => {
+                    this.checkForExecError(error, stdout, stderr, res, { monitor: "off" });
+                });
+                this.sendSocketNotification("USER_PRESENCE", true);
+                return;
+            }
         },
 
         executeQuery: function(query, res) {

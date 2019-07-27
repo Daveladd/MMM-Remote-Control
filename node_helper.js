@@ -668,18 +668,6 @@ module.exports = NodeHelper.create(Object.assign({
                 this.monitorControl(query.action, opts, res);
                 return true;
             }
-            if (query.action === "MONITORON")
-		    {
-			//exec("tvservice --preferred && sudo chvt 6 && sudo chvt 7", opts, function(error, stdout, stderr){ self.checkForExecError(error, stdout, stderr, res); });
-			exec("vcgencmd display_power 1", opts, function(error, stdout, stderr){ self.checkForExecError(error, stdout, stderr, res); });
-			return true;
-		    } 
-            if (query.action === "MONITOROFF")
-		    {
-			//exec("tvservice --preferred && sudo chvt 6 && sudo chvt 7", opts, function(error, stdout, stderr){ self.checkForExecError(error, stdout, stderr, res); });
-			exec("vcgencmd display_power 0", opts, function(error, stdout, stderr){ self.checkForExecError(error, stdout, stderr, res); });
-			return true;
-		    } 
             if (query.action === "HIDE" || query.action === "SHOW" || query.action === "TOGGLE") {
                 self.sendSocketNotification(query.action, query);
                 self.sendResponse(res);

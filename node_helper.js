@@ -598,7 +598,8 @@ module.exports = NodeHelper.create(Object.assign({
             let status = "unknown";
             let monitorOnCommand = (this.initialized && "monitorOnCommand" in this.thisConfig.customCommand) ?
                 this.thisConfig.customCommand.monitorOnCommand :
-                "tvservice --preferred && sudo chvt 6 && sudo chvt 7";
+                //"tvservice --preferred && sudo chvt 6 && sudo chvt 7";
+                "vcgencmd display_power 1";
             let monitorOffCommand = (this.initialized && "monitorOffCommand" in this.thisConfig.customCommand) ?
                 this.thisConfig.customCommand.monitorOffCommand :
                 "tvservice -o";

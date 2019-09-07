@@ -655,7 +655,7 @@ module.exports = NodeHelper.create(Object.assign({
                 return true;
             }
             if (query.action === "REBOOT") {
-                exec("sudo shutdown -r now", opts, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); });
+                exec("sudo shutdown -r now", opts, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); };
                 return true;
             }
             if (query.action === "STOP") {

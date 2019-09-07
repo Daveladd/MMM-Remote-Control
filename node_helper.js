@@ -663,8 +663,8 @@ module.exports = NodeHelper.create(Object.assign({
                 return true;
             }
             if (query.action === "RESTART") {
-                this.controlPm2(res, query);
-//                 exec("pm2 restart mm"), opts, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); });
+//                 this.controlPm2(res, query);
+                exec("pm2 restart MagicMirror"), opts, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); });
                 return true;
             }
             if (query.action === "USER_PRESENCE") {

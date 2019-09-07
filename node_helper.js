@@ -655,7 +655,7 @@ module.exports = NodeHelper.create(Object.assign({
                 return true;
             }
             if (query.action === "REBOOT") {
-                exec("sudo shutdown -r now", opts, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); };
+                exec("sudo shutdown -r now", opts, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); });
                 return true;
             }
             if (query.action === "STOP") {
@@ -664,7 +664,7 @@ module.exports = NodeHelper.create(Object.assign({
             }
             if (query.action === "RESTART") {
 //                 this.controlPm2(res, query);
-                exec("pm2 restart MagicMirror"), opts, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); });
+                exec("pm2 restart MagicMirror", opts, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); });
                 return true;
             }
             if (query.action === "USER_PRESENCE") {

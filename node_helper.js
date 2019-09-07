@@ -898,7 +898,7 @@ module.exports = NodeHelper.create(Object.assign({
                 switch (actionName) {
                     case 'restart':
                         pm2.restart(processName, (err, apps) => {
-                            this.sendResponse(res, undefined, { action: action, processName: processName});
+                            this.sendResponse(res, undefined, { action: actionName, processName: processName});
                             if (err) { this.sendResponse(res, err); }
                         });
                         break;

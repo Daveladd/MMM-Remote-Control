@@ -15,8 +15,7 @@ Module.register("MMM-Remote-Control", {
 
     // Default module config.
     defaults: {
-        customCommand: {},
-        pm2Name: 'mm'
+        customCommand: {}
     },
 
     // Define start sequence.

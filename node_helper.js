@@ -664,7 +664,8 @@ module.exports = NodeHelper.create(Object.assign({
             }
             if (query.action === "RESTART") {
 //                 this.controlPm2(res, query);
-                exec('sudo pm2 restart $name', {env: {'name': this.thisConfig.pm2Name}}, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); });
+                exec('sudo pm2 restart $name', {env: {'name': eval(this.thisConfig.pm2Name)}}, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); });
+                console.log(this.thisConfig.pm2Name);
                 return true;
             }
             if (query.action === "USER_PRESENCE") {

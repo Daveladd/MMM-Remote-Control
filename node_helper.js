@@ -664,8 +664,8 @@ module.exports = NodeHelper.create(Object.assign({
             }
             if (query.action === "RESTART") {
 //                 this.controlPm2(res, query);
-                exec('"pm2 restart" + " " + this.thisConfig.pm2Name', opts, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); });
-                console.log('"pm2 restart" + " " + this.thisConfig.pm2Name');
+                exec("pm2 restart $name", {env: {'name': this.thisConfig.pm2Name}}, opts, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); });
+                console.log(exec("pm2 restart $name", {env: {'name': this.thisConfig.pm2Name}}, opts, (error, stdout, stderr) => { self.checkForExecError(error, stdout, stderr, res); }););
                 
                 return true;
             }

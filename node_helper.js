@@ -602,10 +602,12 @@ module.exports = NodeHelper.create(Object.assign({
                 "vcgencmd display_power 1";
             let monitorOffCommand = (this.initialized && "monitorOffCommand" in this.thisConfig.customCommand) ?
                 this.thisConfig.customCommand.monitorOffCommand :
-                "tvservice -o";
+                //"tvservice -o";
+                "vcgencmd display_power 1";
             let monitorStatusCommand = (this.initialized && "monitorStatusCommand" in this.thisConfig.customCommand) ?
                 this.thisConfig.customCommand.monitorStatusCommand :
-                "tvservice --status";
+                //"tvservice --status";
+                'vcgencmd display_power | grep -q "1" && echo "true" || echo "false" '
             if (["MONITORTOGGLE", "MONITORSTATUS", "MONITORON"].indexOf(action) !== -1) {
                 screenStatus = exec(monitorStatusCommand, opts, (error, stdout, stderr) => {
                     if (stdout.indexOf("TV is off") !== -1 || stdout.indexOf("false") !== -1) {
